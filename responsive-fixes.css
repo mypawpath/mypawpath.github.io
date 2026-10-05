@@ -19,3 +19,25 @@
     margin-inline: auto;
   }
 }
+
+/* The footer contact address is nowrap in a `1fr auto` row, so on the
+   narrowest phones a long address would be clipped by `overflow-x: hidden`
+   rather than scrolled to. Trim the hover-plate inset and let it fall to its
+   own row below ~380px. No effect wherever the row already fits. */
+@media (max-width: 380px) {
+  .site-footer .footer-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .site-footer .footer-logo,
+  .site-footer .footer-contact,
+  .site-footer .footer-copyright {
+    grid-column: 1;
+    justify-self: start;
+  }
+  .site-footer .footer-logo { grid-row: 1; }
+  .site-footer .footer-contact {
+    grid-row: 2;
+    padding-inline: 0;
+  }
+  .site-footer .footer-copyright { grid-row: 3; }
+}
