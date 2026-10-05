@@ -2,19 +2,38 @@
 
 Responsive GitHub Pages version of the PawPath Framer site.
 
-## Publish with GitHub Pages
+**Live:** <https://mypawpath.github.io/>
 
-1. Create a GitHub repository named `pawpath`.
-2. Push this folder to the `main` branch.
-3. In GitHub, open `Settings > Pages`.
-4. Set `Source` to `GitHub Actions`.
-5. Push again or run the `Deploy to GitHub Pages` workflow.
+## How it deploys
 
-The published URL will usually be:
+The repository is named `mypawpath.github.io`, so GitHub Pages serves it at the
+account root rather than under a `/pawpath/` subpath. Every asset in the page is
+referenced with a relative path, so the site works at either location.
 
-```text
-https://<your-github-username>.github.io/pawpath/
-```
+`.github/workflows/pages.yml` deploys on every push to `main` (and can be run
+manually via `workflow_dispatch`). It sets `enablement: true`, so Pages turns
+itself on the first time the workflow runs — there is nothing to click in
+`Settings > Pages`.
+
+## Files that make up the site
+
+| File | Role |
+| --- | --- |
+| `index.html` | The whole page |
+| `styles.css` | Base layout and type |
+| `git-original-sections.css` | Section layouts |
+| `polish.css` | Visual polish and responsive award/hero treatments |
+| `responsive-fixes.css` | Small-screen corrections, loaded last |
+| `script.js` | Scroll and footer-visibility behaviour |
+| `assets/` | Product shots, team photos, award logos |
+
+All four stylesheets are required — the page looks broken without any one of
+them. They are cache-busted by query string in `index.html`; bump the `?v=`
+value when you change one.
+
+`.gitignore` keeps the local design-review screenshots out of the repository.
+The Pages workflow uploads the entire checkout (`path: "."`), so anything
+committed at the root ships with the site.
 
 ## Local preview
 
