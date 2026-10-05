@@ -14,7 +14,7 @@
     <meta property="og:image" content="assets/hero-dog-cutout.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -42,154 +42,89 @@
       };
     </script>
     <link rel="stylesheet" href="styles.css?v=section-motion-1">
+    <link rel="stylesheet" href="polish.css?v=responsive-awards-5">
+    <link rel="stylesheet" href="git-original-sections.css?v=2">
+    <link rel="stylesheet" href="responsive-fixes.css?v=1">
   </head>
   <body class="bg-paper font-sans text-ink antialiased">
-    <header class="site-header site-container" aria-label="Primary">
-      <a class="site-brand" href="#top" aria-label="PawPath home">PawPath</a>
+    <a class="skip-link" href="#top">Skip to main content</a>
+    <svg class="svg-symbols" aria-hidden="true">
+      <defs>
+        <symbol id="pawGoldLarge" viewBox="0 0 94 101">
+          <path d="M44.8065 48.4314C49.816 55.767 56.666 52.5816 66.3598 55.1074C80.5091 58.5249 85.8264 51.1951 83.0349 43.8118C80.3347 36.7303 71.5344 36.236 67.0533 29.7245C62.5721 23.213 64.5952 13.2957 59.2071 8.39873C53.8191 3.50175 46.0427 7.31465 45.0824 23.5131C44.5336 34.6139 40.0514 41.0143 44.8065 48.4314Z"></path>
+          <path d="M52.2354 70.2215C54.0431 62.3595 59.3993 57.0037 63.8743 58.8822C68.3493 60.7607 70.7233 68.6087 68.7525 76.8539C66.9449 84.7159 61.5886 90.0717 57.1136 88.1932C52.6386 86.3147 50.5191 78.3853 52.2354 70.2215Z"></path>
+          <path d="M28.3163 34.507C35.6618 34.8048 41.292 30.3544 41.0119 24.816C40.7319 19.2775 34.5805 14.6248 27.3264 14.6289C19.9809 14.3311 14.3507 18.7814 14.6308 24.3199C14.8195 29.5565 20.9709 34.2093 28.3163 34.507Z"></path>
+          <path d="M30.0106 64.0915C35.093 57.8301 42.3082 55.8521 46.0589 59.9489C49.8096 64.0456 48.7847 72.6502 43.7024 78.9116C38.62 85.173 31.4048 87.151 27.6541 83.0543C24.1578 78.8761 25.0196 70.6548 30.0106 64.0915Z"></path>
+          <path d="M27.46 60.2734C34.1273 56.4843 37.8268 49.3412 35.3287 43.8504C32.9219 38.6614 25.5569 37.3766 18.6351 41.2471C11.9677 45.0362 8.26831 52.1793 10.7664 57.6701C13.1732 62.8591 20.7926 64.0624 27.46 60.2734Z"></path>
+        </symbol>
+      </defs>
+    </svg>
+    <header class="site-header site-container" aria-label="Primary" data-od-id="site-header">
+      <a class="site-brand" href="#top" aria-label="PawPath home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 15.4c-5.5 0-9 4.2-9 8.3 0 3.1 2.4 4.7 5.2 3.4 2.2-1 5.4-1 7.6 0 2.8 1.3 5.2-.3 5.2-3.4 0-4.1-3.5-8.3-9-8.3ZM8.1 13.8c2.1 0 3.8-2.1 3.8-4.7S10.2 4.4 8.1 4.4 4.3 6.5 4.3 9.1s1.7 4.7 3.8 4.7Zm15.8 0c2.1 0 3.8-2.1 3.8-4.7s-1.7-4.7-3.8-4.7-3.8 2.1-3.8 4.7 1.7 4.7 3.8 4.7ZM16 11.1c2 0 3.6-2.2 3.6-5S18 1.2 16 1.2s-3.6 2.2-3.6 4.9 1.6 5 3.6 5Z"></path></svg>
+        <span>PawPath</span>
+      </a>
       <button class="nav-toggle" type="button" aria-label="Open menu" aria-controls="site-nav" aria-expanded="false">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </button>
       <nav class="site-nav" id="site-nav" aria-label="Page">
-        <a href="#platform">Platform</a>
-        <a href="#app">App</a>
+        <a href="#problem">Why PawPath</a>
+        <a href="#platform">Product</a>
         <a href="#team">Team</a>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero-shell relative isolate -mt-14 overflow-hidden bg-cream">
-        <div class="hero-inner site-container grid items-start lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-8">
-          <div class="relative z-10 max-w-xl">
-            <div class="award-badge" aria-label="Red Dot Award Winner 2026">
-              <img class="award-logo" src="assets/red-dot-official-logo.png" alt="">
-              <span>Red Dot Award Winner 2026</span>
-            </div>
-            <h1 class="hero-title text-ink">
-              Adoption is a promise.
-            </h1>
-            <p class="hero-subtitle mt-5 text-ink lg:mt-6">
-              An animal's life doesn't end at adoption.<br>
-              It begins there.
-            </p>
+    <main id="top" tabindex="-1">
+      <section class="hero-reframe" data-od-id="hero">
+        <div class="hero-product-backdrop" aria-hidden="true">
+          <div class="hero-product-screen hero-product-screen-checkin">
+            <img src="assets/app-checkin.png" alt="">
           </div>
-
-          <div class="hero-art" aria-label="A dog representing pets supported after adoption">
-            <svg class="hero-vector" viewBox="0 0 671 690" preserveAspectRatio="xMidYMid meet" role="img" aria-label="PawPath pet adoption illustration">
-              <defs>
-                <symbol id="pawGoldLarge" viewBox="0 0 94 101">
-                  <path d="M44.8065 48.4314C49.816 55.767 56.666 52.5816 66.3598 55.1074C80.5091 58.5249 85.8264 51.1951 83.0349 43.8118C80.3347 36.7303 71.5344 36.236 67.0533 29.7245C62.5721 23.213 64.5952 13.2957 59.2071 8.39873C53.8191 3.50175 46.0427 7.31465 45.0824 23.5131C44.5336 34.6139 40.0514 41.0143 44.8065 48.4314Z"></path>
-                  <path d="M52.2354 70.2215C54.0431 62.3595 59.3993 57.0037 63.8743 58.8822C68.3493 60.7607 70.7233 68.6087 68.7525 76.8539C66.9449 84.7159 61.5886 90.0717 57.1136 88.1932C52.6386 86.3147 50.5191 78.3853 52.2354 70.2215Z"></path>
-                  <path d="M28.3163 34.507C35.6618 34.8048 41.292 30.3544 41.0119 24.816C40.7319 19.2775 34.5805 14.6248 27.3264 14.6289C19.9809 14.3311 14.3507 18.7814 14.6308 24.3199C14.8195 29.5565 20.9709 34.2093 28.3163 34.507Z"></path>
-                  <path d="M30.0106 64.0915C35.093 57.8301 42.3082 55.8521 46.0589 59.9489C49.8096 64.0456 48.7847 72.6502 43.7024 78.9116C38.62 85.173 31.4048 87.151 27.6541 83.0543C24.1578 78.8761 25.0196 70.6548 30.0106 64.0915Z"></path>
-                  <path d="M27.46 60.2734C34.1273 56.4843 37.8268 49.3412 35.3287 43.8504C32.9219 38.6614 25.5569 37.3766 18.6351 41.2471C11.9677 45.0362 8.26831 52.1793 10.7664 57.6701C13.1732 62.8591 20.7926 64.0624 27.46 60.2734Z"></path>
-                </symbol>
-                <symbol id="pawPurple" viewBox="0 0 79 82">
-                  <path d="M38.3328 40.6854C31.874 42.0781 31.3604 48.3314 26.3223 54.957C19.0936 64.651 21.7906 71.5099 27.3 72.0221C32.8093 72.5344 36.2785 65.6986 42.1533 64.9803C47.8822 63.8912 53.353 69.1649 58.3163 66.6687C63.3526 64.3579 63.7937 56.8405 53.9451 50.1525C47.3429 45.7809 44.8279 39.9247 38.3328 40.6854Z"></path>
-                  <path d="M20.6972 37.9788C25.0287 42.8251 26.4841 49.0969 23.9766 51.974C21.2954 54.9234 15.635 53.381 11.3036 48.5347C6.97216 43.6885 5.51676 37.4166 8.02424 34.5395C10.7054 31.5902 16.3658 33.1326 20.6972 37.9788Z"></path>
-                  <path d="M52.9853 32.5975C50.1643 38.3359 50.8401 44.3586 54.3056 46.1776C57.7711 47.9966 62.9317 44.9802 65.7527 39.2418C68.5737 33.5034 67.8979 27.4806 64.4324 25.6617C60.7851 23.9183 55.6245 26.9347 52.9853 32.5975Z"></path>
-                  <path d="M33.5887 23.3119C35.9492 29.8492 34.5222 36.3672 30.6551 37.7481C26.788 39.129 21.7443 34.8471 19.3837 28.3097C17.0232 21.7724 18.4502 15.2543 22.3173 13.8734C26.1844 12.4926 31.2281 16.7745 33.5887 23.3119Z"></path>
-                  <path d="M37.0136 22.5138C36.9119 29.0122 40.1475 34.1223 44.0479 34.1658C48.1239 34.1363 51.424 29.0147 51.5961 22.6953C51.6978 16.1968 48.4621 11.0867 44.5618 11.0432C40.591 10.8207 37.1153 16.0153 37.0136 22.5138Z"></path>
-                </symbol>
-                <symbol id="pawPink" viewBox="0 0 83 86">
-                  <path d="M41.0272 40.9501C37.7094 35.3174 31.81 36.9563 24.1282 34.4936C12.9363 30.9604 7.60826 35.9158 9.01453 41.3538C10.2835 46.6759 17.7044 47.7375 20.223 52.9324C23.1041 57.9606 20.1106 64.8849 24.0298 68.8989C27.8118 72.797 34.6861 70.7992 37.5972 59.081C39.4921 51.2303 44.1198 46.8654 41.0272 40.9501Z"></path>
-                  <path d="M37.6957 24.6767C35.2157 30.3805 30.2144 33.4855 26.655 31.901C23.0956 30.3164 22.2523 24.1722 24.8696 18.5842C27.3495 12.8804 32.2135 9.65955 35.9102 11.3599C39.607 13.0603 40.1756 18.9729 37.6957 24.6767Z"></path>
-                  <path d="M52.8728 52.5939C46.8636 51.7779 41.7003 54.5101 41.2087 58.5837C40.7172 62.6574 45.2489 66.4792 51.2334 67.0381C57.2427 67.854 62.406 65.1219 62.8975 61.0482C63.3891 56.9746 58.8573 53.1527 52.8728 52.5939Z"></path>
-                  <path d="M55.2066 30.9407C50.3042 35.074 44.1934 35.8259 41.4854 32.5972C38.7773 29.3685 40.708 23.2015 45.6103 19.0681C50.5127 14.9348 56.6235 14.1829 59.3315 17.4116C62.0396 20.6403 60.1089 26.8073 55.2066 30.9407Z"></path>
-                  <path d="M56.7534 33.8982C50.6536 36.0767 46.9624 40.9953 48.3577 45.0066C49.753 49.018 55.699 50.4893 61.7989 48.3108C67.8987 46.1322 71.5899 41.2137 70.1946 37.2024C68.7994 33.191 62.8533 31.7197 56.7534 33.8982Z"></path>
-                </symbol>
-                <symbol id="pawCream39" viewBox="0 0 39 41">
-                  <path d="M18.9412 19.7084C15.9834 18.0806 13.7974 20.3434 9.73097 21.2309C3.83696 22.5773 2.70893 26.1548 4.69187 28.2055C6.67482 30.2561 10.197 28.7596 12.713 30.4538C15.2901 31.9547 15.7458 35.8467 18.4715 36.5423C21.1668 37.3346 23.7261 34.5552 22.0147 28.6413C20.8318 24.7203 21.7123 21.5945 18.9412 19.7084Z"></path>
-                  <path d="M12.9336 12.7283C13.0813 16.0711 11.6562 19.0027 9.76592 19.2807C7.785 19.5284 6.07043 17.0258 5.92268 13.683C5.77494 10.3402 7.20007 7.40859 9.09037 7.13063C11.0713 6.88291 12.7859 9.38554 12.9336 12.7283Z"></path>
-                  <path d="M27.2171 21.4817C24.2959 22.7687 22.6463 25.3413 23.4183 27.2142C24.1902 29.087 27.158 29.6463 30.0792 28.3593C33.0003 27.0723 34.6499 24.4997 33.878 22.6269C33.0112 20.7224 30.0434 20.1631 27.2171 21.4817Z"></path>
-                  <path d="M22.612 11.3485C21.4551 14.6877 18.8292 16.7466 16.8846 15.985C14.94 15.2234 14.3356 11.8611 15.4926 8.52195C16.6495 5.18277 19.2754 3.12381 21.22 3.8854C23.1646 4.64699 23.769 8.00932 22.612 11.3485Z"></path>
-                  <path d="M24.1994 12.1887C22.0959 14.6853 21.7331 17.7627 23.2383 19.0902C24.8351 20.4483 27.7469 19.5625 29.821 17.1592C31.9245 14.6625 32.2873 11.5852 30.7821 10.2577C29.3063 8.83681 26.3029 9.69201 24.1994 12.1887Z"></path>
-                </symbol>
-                <symbol id="pawCream42" viewBox="0 0 42 43">
-                  <path d="M20.4764 20.7665C18.7435 18.0241 15.9226 18.8754 12.1513 17.7006C6.65838 16.0477 4.13183 18.4882 4.86725 21.1234C5.60267 23.7587 9.19262 24.1718 10.5292 26.7617C12.0023 29.2197 10.6511 32.666 12.6056 34.5252C14.4918 36.4503 17.8522 35.3454 19.0591 29.6297C19.8192 25.8175 21.9394 23.6356 20.4764 20.7665Z"></path>
-                  <path d="M18.589 12.1451C17.2262 14.9906 14.74 16.7551 13.0467 16.0972C11.2916 15.3716 10.9799 12.4872 12.3427 9.64178C13.7055 6.79635 16.1917 5.03184 17.885 5.68974C19.6402 6.41534 19.9518 9.29972 18.589 12.1451Z"></path>
-                  <path d="M26.5606 26.1296C23.5628 25.825 21.0497 27.1859 20.8584 29.1041C20.6672 31.0223 22.8833 32.882 25.881 33.1867C28.8788 33.4913 31.3919 32.1304 31.5831 30.2122C31.7097 28.2232 29.4936 26.3634 26.5606 26.1296Z"></path>
-                  <path d="M27.2388 15.5499C24.7942 17.7789 21.6986 18.2542 20.4222 16.7075C19.1457 15.1608 20.138 12.0844 22.5827 9.85537C25.0273 7.62633 28.1229 7.15106 29.3993 8.69777C30.6758 10.2445 29.6835 13.3208 27.2388 15.5499Z"></path>
-                  <path d="M28.184 16.9936C25.3277 18.078 23.6588 20.463 24.3189 22.273C25.0414 24.1516 27.8531 24.785 30.6435 23.7643C33.4998 22.68 35.1686 20.295 34.5086 18.4849C33.9145 16.6112 31.0403 15.9093 28.184 16.9936Z"></path>
-                </symbol>
-                <clipPath id="avatarClipA" clipPathUnits="userSpaceOnUse"><circle cx="49" cy="223" r="24.5"></circle></clipPath>
-                <clipPath id="avatarClipB" clipPathUnits="userSpaceOnUse"><circle cx="524" cy="134" r="24.5"></circle></clipPath>
-                <clipPath id="avatarClipC" clipPathUnits="userSpaceOnUse"><circle cx="267" cy="710" r="24.5"></circle></clipPath>
-                <clipPath id="heroBlobClip" clipPathUnits="userSpaceOnUse">
-                  <path d="M531.895 214.248C558.624 267.449 552.983 335.144 544.402 389.612C536.128 444.501 525.222 486.585 505.904 523.305C486.944 560.077 459.621 591.116 425.161 612.835C391.111 634.238 349.565 646.269 301.395 650.561C253.175 655.222 197.615 652.04 145.967 625.71C94.2678 599.749 46.1225 550.588 26.3016 489.732C6.89028 428.56 15.8034 355.694 54.6358 310.14C93.0586 264.904 161.401 246.98 221.572 213.939C282.102 180.951 334.511 132.477 390.469 127.435C446.377 122.761 505.475 161.468 531.895 214.248Z"></path>
-                </clipPath>
-              </defs>
-              <path class="hero-blob-fill" d="M531.895 214.248C558.624 267.449 552.983 335.144 544.402 389.612C536.128 444.501 525.222 486.585 505.904 523.305C486.944 560.077 459.621 591.116 425.161 612.835C391.111 634.238 349.565 646.269 301.395 650.561C253.175 655.222 197.615 652.04 145.967 625.71C94.2678 599.749 46.1225 550.588 26.3016 489.732C6.89028 428.56 15.8034 355.694 54.6358 310.14C93.0586 264.904 161.401 246.98 221.572 213.939C282.102 180.951 334.511 132.477 390.469 127.435C446.377 122.761 505.475 161.468 531.895 214.248Z"></path>
-              <g class="hero-paw-fill">
-                <use href="#pawCream39" x="392" y="153" width="39" height="41"></use>
-                <use href="#pawCream42" x="476" y="232" width="42" height="43"></use>
-                <use href="#pawCream39" x="361" y="245" width="34" height="36"></use>
-                <use href="#pawCream39" x="262" y="199" width="39" height="41"></use>
-                <use href="#pawCream39" x="166" y="250" width="32" height="32"></use>
-                <use href="#pawCream42" x="492" y="371" width="41" height="43"></use>
-                <use href="#pawCream39" x="122" y="528" width="37" height="38"></use>
-              </g>
-              <g clip-path="url(#heroBlobClip)">
-                <g class="hero-white-marks">
-                  <g class="hero-white-left-paw" aria-hidden="true">
-                    <path d="M74 386C101 382 120 407 116 437C112 465 88 475 67 459C47 444 48 414 58 398C62 391 67 388 74 386Z"></path>
-                    <path d="M45 322C64 313 89 327 94 349C100 371 80 378 59 369C38 360 28 336 45 322Z"></path>
-                    <path d="M97 514C113 531 106 558 84 568C62 578 45 563 50 541C55 518 81 499 97 514Z"></path>
-                    <path d="M23 454C43 448 63 465 61 486C59 507 35 507 20 493C6 479 6 462 23 454Z"></path>
-                    <path d="M8 389C27 386 48 406 47 426C47 446 22 443 8 429C-5 416 -5 393 8 389Z"></path>
-                  </g>
-                  <path d="M511 433C536 434 548 463 539 491C531 520 496 535 476 521C458 508 463 478 483 456C492 447 501 438 511 433Z"></path>
-                </g>
-              </g>
-              <image class="hero-dog-raster" href="assets/hero-dog-cutout.png" x="0" y="0" width="671" height="690" preserveAspectRatio="xMidYMid meet"></image>
-              <g class="hero-color-paws">
-                <use class="hero-purple-paw" href="#pawPurple" x="129" y="117" width="79" height="82"></use>
-                <use class="hero-pink-paw" href="#pawPink" x="564" y="349" width="83" height="86"></use>
-                <use class="hero-orange-paw" href="#pawGoldLarge" x="-64" y="541" width="94" height="101"></use>
-              </g>
-              <g class="hero-svg-avatar hero-svg-avatar-left">
-                <circle cx="49" cy="223" r="25.5"></circle>
-                <image href="assets/dog-avatar.png" x="24.5" y="198.5" width="49" height="49" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatarClipA)"></image>
-              </g>
-              <g class="hero-svg-avatar hero-svg-avatar-top">
-                <circle cx="524" cy="134" r="24.5"></circle>
-                <image href="assets/pet-circle-1.png" x="499.5" y="109.5" width="49" height="49" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatarClipB)"></image>
-              </g>
-              <g class="hero-svg-avatar hero-svg-avatar-bottom">
-                <circle cx="267" cy="710" r="24.5"></circle>
-                <image href="assets/pet-circle-2.png" x="242.5" y="685.5" width="49" height="49" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatarClipC)"></image>
-              </g>
-            </svg>
+          <div class="hero-product-screen hero-product-screen-community">
+            <img src="assets/app-community.png" alt="">
+          </div>
+        </div>
+        <div class="hero-reframe-inner site-container">
+          <div class="hero-reframe-copy">
+            <div class="hero-reframe-award" aria-label="2026 Red Dot Award Winner; 2026 MUSE Silver Winner" data-od-id="hero-award">
+              <span class="hero-award-item"><img src="assets/red-dot-official-logo.png" alt="">2026 Red Dot Award Winner</span>
+              <span class="hero-award-item" data-od-id="hero-muse-award"><img class="muse-award-logo" src="assets/muse-official-logo.png" alt="MUSE">2026 Silver Winner</span>
+            </div>
+            <h1 class="hero-reframe-title" data-od-id="hero-heading">Adoption is a promise.</h1>
+            <p class="hero-reframe-lead">An animal's life doesn't end at adoption.<br>It begins there.</p>
+          </div>
+          <div class="hero-reframe-support">
+            <div class="hero-reframe-actions">
+              <a class="hero-reframe-primary" href="#platform" data-od-id="hero-primary-cta">Explore PawPath</a>
+              <a class="hero-reframe-secondary" href="#problem" data-od-id="hero-secondary-cta">How it works</a>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="problem" class="bg-white">
-        <div class="site-container grid items-center gap-10 py-16 lg:min-h-[660px] lg:grid-cols-[0.98fr_1.02fr] lg:gap-16 lg:py-16">
-          <div class="problem-art" aria-label="Pet adoption care video">
-            <img class="problem-dog" src="assets/problem-dog.png" alt="Adopted dog">
-            <a class="video-bubble" href="https://drive.google.com/file/d/1qMaedxGE6seI0jaTm5_xq4JkyP7AuMGZ/view" target="_blank" rel="noreferrer">
-              <span class="play-ring" aria-hidden="true"></span>
-              Learn more
-            </a>
-          </div>
-          <div class="problem-copy max-w-xl lg:pl-4">
-            <h2 class="problem-title text-ink">
-              But what happens after adoption?
-            </h2>
-            <p class="mt-7 text-base font-semibold leading-snug text-muted sm:text-lg lg:text-[1.05rem]">
-              For many shelters, adoption is where visibility ends.<br>
-              Once an animal leaves, there's no way to know:
-            </p>
-            <div class="question-quote" aria-label="Post-adoption questions">
-              <p>Are they safe?</p>
-              <p>Are they adjusting?</p>
-              <p>Are they being cared for properly?</p>
+      <section id="problem" class="problem-redesign" data-od-id="problem-section">
+        <div class="problem-redesign-inner site-container">
+          <header class="problem-redesign-heading">
+            <span class="problem-redesign-eyebrow">The gap after adoption</span>
+            <h2 class="problem-title">But what happens after adoption?</h2>
+            <p>For many shelters, adoption is where visibility ends. Once an animal leaves, there is no simple way to know how life at home is really going.</p>
+          </header>
+
+          <div class="problem-redesign-stage">
+            <div class="problem-art product-video" aria-label="PawPath product video" data-od-id="product-video">
+              <iframe
+                width="420"
+                height="345"
+                src="https://www.youtube.com/embed/wkrftjhQ9sM"
+                title="PawPath product video"
+                loading="eager"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
             </div>
-            <p class="mt-7 text-base font-semibold leading-snug text-muted sm:text-lg lg:text-[1.05rem]">
-              And for new owners, the journey can feel uncertain&mdash;questions, doubts, and advice that isn't always right.
-            </p>
           </div>
         </div>
       </section>
@@ -202,6 +137,12 @@
               A connected system that helps shelters and adopters stay engaged after adoption&mdash;through weekly check-ins,
               community support, and continuous monitoring&mdash;ensuring every pet is cared for beyond the moment they go home.
             </p>
+            <p class="platform-questions-label">What shelters need to know</p>
+            <ul class="platform-questions" aria-label="Questions PawPath helps shelters answer" data-od-id="platform-questions">
+              <li>Are they safe?</li>
+              <li>Are they adjusting?</li>
+              <li>Are they receiving the right care?</li>
+            </ul>
           </div>
           <div class="platform-visual" aria-label="PawPath dashboard on desktop monitor">
             <img src="assets/dashboard-main.png" alt="PawPath shelter dashboard overview">
@@ -216,7 +157,6 @@
           </svg>
           <svg class="flow-paw flow-paw-one" viewBox="0 0 94 101" aria-hidden="true"><use href="#pawGoldLarge"></use></svg>
           <svg class="flow-paw flow-paw-two" viewBox="0 0 94 101" aria-hidden="true"><use href="#pawGoldLarge"></use></svg>
-
           <div class="system-intro">
             <h2 class="story-title text-ink">Beyond Adoption, Toward a Better Life</h2>
           </div>
@@ -282,13 +222,13 @@
         </div>
       </section>
 
-      <section class="promise-section bg-white">
-        <div class="promise-inner site-container grid items-center gap-10 py-16 lg:grid-cols-[0.95fr_1.05fr] lg:py-24">
-          <div class="promise-pet">
+      <section class="promise-section bg-white" data-od-id="promise-section">
+        <div class="promise-inner site-container grid items-center gap-10 py-16 lg:grid-cols-[0.95fr_1.05fr] lg:py-24" data-od-id="promise-card">
+          <div class="promise-pet" data-od-id="promise-pets">
             <img src="assets/footer-pet.png" alt="Adopted pets together">
           </div>
           <div class="promise-copy">
-            <h2 class="story-title text-ink">Every pet deserves more than a home.</h2>
+            <h2 class="story-title text-ink" data-od-id="promise-heading">Every pet deserves more than a home.</h2>
             <p>They deserve to be seen, cared for, and supported&mdash;every week, long after adoption.</p>
           </div>
         </div>
@@ -370,48 +310,18 @@
       </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer" data-od-id="site-footer">
       <div class="site-container">
         <div class="footer-panel">
-          <div class="footer-brand">
-            <a class="footer-logo" href="#top" aria-label="PawPath home">PawPath</a>
-            <p>
-              Responsible pet adoption, beyond the moment they go home.
-            </p>
-            <a class="footer-award" href="#top" aria-label="Red Dot Award Winner 2026">
-              <img src="assets/red-dot-official-logo.png" alt="">
-              <span>Red Dot Award Winner 2026</span>
-            </a>
-          </div>
-
-          <nav class="footer-group" aria-label="Product">
-            <h2>Product</h2>
-            <a href="#problem">Why PawPath</a>
-            <a href="#platform">Platform</a>
-            <a href="#system">Care flow</a>
-            <a href="#app">App</a>
-          </nav>
-
-          <nav class="footer-group" aria-label="Company">
-            <h2>Company</h2>
-            <a href="#team">Team</a>
-            <a href="https://drive.google.com/file/d/1qMaedxGE6seI0jaTm5_xq4JkyP7AuMGZ/view" target="_blank" rel="noreferrer">Video</a>
-            <a href="#top">View deck</a>
-          </nav>
-
-          <div class="footer-group">
-            <h2>Connect</h2>
-            <a href="mailto:hello@pawpath.app">hello@pawpath.app</a>
-            <a href="#team">LinkedIn</a>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <p>© 2026 PawPath. All rights reserved.</p>
-          <a href="#top">Back to top</a>
+          <a class="footer-logo" href="#top" aria-label="PawPath home">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 15.4c-5.5 0-9 4.2-9 8.3 0 3.1 2.4 4.7 5.2 3.4 2.2-1 5.4-1 7.6 0 2.8 1.3 5.2-.3 5.2-3.4 0-4.1-3.5-8.3-9-8.3ZM8.1 13.8c2.1 0 3.8-2.1 3.8-4.7S10.2 4.4 8.1 4.4 4.3 6.5 4.3 9.1s1.7 4.7 3.8 4.7Zm15.8 0c2.1 0 3.8-2.1 3.8-4.7s-1.7-4.7-3.8-4.7-3.8 2.1-3.8 4.7 1.7 4.7 3.8 4.7ZM16 11.1c2 0 3.6-2.2 3.6-5S18 1.2 16 1.2s-3.6 2.2-3.6 4.9 1.6 5 3.6 5Z"></path></svg>
+            <span>PawPath</span>
+          </a>
+          <p class="footer-copyright">© 2026 PawPath</p>
+          <a class="footer-contact" href="mailto:hello@pawpath.app">hello@pawpath.app</a>
         </div>
       </div>
     </footer>
-    <script src="script.js?v=footer-polish-1"></script>
+    <script src="script.js?v=footer-visibility-3"></script>
   </body>
 </html>

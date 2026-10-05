@@ -1,0 +1,21 @@
+/* Focused responsive corrections; preserve the established visual system. */
+.hero-reframe-award .muse-award-logo {
+  width: 76px;
+  height: 25px;
+  object-fit: contain;
+}
+#system .system-top-row {
+  width: 100%;
+  max-width: 1120px;
+  gap: clamp(20px, 3vw, 34px);
+}
+#system .system-top-row .system-screen {
+  width: 100%;
+  min-width: 0;
+}
+@media (max-width: 767px) {
+  #system .system-top-row {
+    grid-template-columns: minmax(0, 1fr);
+    margin-inline: auto;
+  }
+}

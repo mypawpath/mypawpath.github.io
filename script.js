@@ -15,6 +15,7 @@ const setMenuOpen = (isOpen) => {
   header.toggleAttribute("data-menu-open", isOpen);
   navToggle.setAttribute("aria-expanded", String(isOpen));
   navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+  if (isOpen) siteNav?.querySelector("a")?.focus();
 };
 
 navToggle?.addEventListener("click", () => {
@@ -29,8 +30,15 @@ siteNav?.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
+    const wasOpen = header?.hasAttribute("data-menu-open");
     setMenuOpen(false);
+    if (wasOpen) navToggle?.focus();
   }
+});
+
+document.addEventListener("pointerdown", (event) => {
+  if (!header?.hasAttribute("data-menu-open")) return;
+  if (event.target instanceof Node && !header.contains(event.target)) setMenuOpen(false);
 });
 
 const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -39,13 +47,12 @@ if (!motionQuery.matches) {
   document.documentElement.classList.add("motion-ready");
 
   const revealItems = [
-    document.querySelector(".hero-shell .award-badge"),
-    document.querySelector(".hero-shell .hero-title"),
-    document.querySelector(".hero-shell .hero-subtitle"),
-    document.querySelector(".hero-art"),
+    document.querySelector(".hero-reframe-copy"),
+    document.querySelector(".hero-reframe-visual"),
+    document.querySelector(".hero-reframe-support"),
     ...document.querySelectorAll(
       [
-        "#problem .problem-visual",
+        "#problem .problem-art",
         "#problem .problem-copy",
         "#platform .platform-copy",
         "#platform .platform-visual",
@@ -57,9 +64,7 @@ if (!motionQuery.matches) {
         ".promise-section .promise-pet",
         ".promise-section .promise-copy",
         "#team .team-heading",
-        "#team .team-card",
-        ".site-footer .footer-panel",
-        ".site-footer .footer-bottom"
+        "#team .team-card"
       ].join(",")
     )
   ].filter(Boolean);

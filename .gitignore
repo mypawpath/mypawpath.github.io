@@ -1,0 +1,9 @@
+# Open Design workspace artifacts (not part of the published site)
+.file-versions/
+.od-skills/
+*.artifact.json
+critique.json
+responsive-audit.html
+
+# Local design-review screenshots — multi-MB each, kept out of the Pages artifact
+/*.png
