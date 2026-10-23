@@ -1,33 +1,36 @@
-/* Team section — larger cards plus a full-bio dialog.
+/* Team section — compact person rows plus a full-bio dialog.
    Loaded LAST so it wins over the four-up grid and the small type in
-   polish.css. Kept in its own file so the whole treatment can be reverted by
-   deleting one <link>. Everything is scoped under #team so no other section
-   can be caught by these selectors. */
+   polish.css. Kept in its own file so the whole treatment reverts by deleting
+   one <link>. Everything is scoped under #team.
+
+   Shape: avatar left, name + role in the middle, actions pushed to the right
+   edge. Two earlier passes failed on the same thing — half the team has no bio
+   and no profile link yet, so any layout that reserves a block for body copy
+   leaves those cards as empty boxes. Nothing is reserved here: the bio lives
+   entirely in the dialog, so all four cards carry identical content and the
+   row is short enough that a bare right edge reads as spacing, not a hole. */
 
 #team .team-heading {
   max-width: 46ch;
 }
 
-/* Two up on desktop, one up when there is not room for two 420px columns.
-   auto-fit rather than a hard column count so the preview pane and real
-   breakpoints agree without a separate media query. */
 #team .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: 14px;
   margin-top: clamp(32px, 4.5vw, 48px);
   align-items: stretch;
 }
 
 #team .team-card {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(16px, 1.8vw, 20px);
   overflow: visible;
-  padding: clamp(24px, 2.6vw, 32px);
+  padding: 18px clamp(18px, 2vw, 24px);
   border: 1px solid var(--p-border);
-  border-radius: 18px;
+  border-radius: 16px;
   background: #fff;
   box-shadow: none;
   text-align: left;
@@ -40,18 +43,19 @@
   box-shadow: none;
 }
 
-/* The avatars are opaque PNGs: a white square with a coloured disc painted on
-   it. Framing them in a rounded rectangle produced a disc inside a plate
-   inside a card. Clipping to a circle removes the middle frame, and a real
-   headshot reads fine in the same circle. */
+/* The avatars are opaque PNGs — a white square with a coloured disc painted
+   on it. A rounded-rectangle frame around that reads as a disc inside a plate
+   inside a card, so they clip to a circle instead. A real headshot sits in the
+   same circle without looking out of place. */
 #team .team-card .team-photo,
 #team .team-card:nth-child(2) .team-photo,
 #team .team-card:nth-child(3) .team-photo,
 #team .team-card:nth-child(4) .team-photo {
   display: block;
   position: static;
-  width: clamp(88px, 10vw, 108px);
-  height: clamp(88px, 10vw, 108px);
+  width: 76px;
+  height: 76px;
+  flex: 0 0 auto;
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -71,21 +75,21 @@
 }
 
 /* styles.css styles .team-info as a floating white panel that overlaps the
-   photo: negative top margin, inset width, its own border and shadow. All of
-   that has to be zeroed explicitly or it shows through as a box inside the
+   photo: inset width, a -38px top margin, its own fill, border and shadow.
+   Every one of those has to be zeroed or it shows through as a box inside the
    card. */
 #team .team-info {
   position: static;
-  z-index: auto; /* the old rule raised it to float above the photo */
+  z-index: auto;
   display: flex;
-  width: 100%;
+  width: auto;
   min-height: 0;
   flex: 1 1 auto;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
   justify-content: flex-start;
-  gap: 10px;
-  margin: 18px 0 0;
+  gap: 16px;
+  margin: 0;
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -93,20 +97,27 @@
   box-shadow: none;
 }
 
+/* The name/role stack. min-width:0 lets a long name ellipsise instead of
+   forcing the actions off the card. */
+#team .team-info > div:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 #team .team-info h3 {
   margin: 0;
   color: var(--p-fg);
   font-family: var(--p-display);
-  font-size: 1.3rem;
+  font-size: 1.12rem;
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.012em;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
-/* Uppercase without tracking looks cramped; 0.085em is inside the 0.06-0.1em
-   band that caps are meant to sit in. */
+/* Uppercase without tracking looks cramped; 0.085em sits inside the band caps
+   are meant to occupy. */
 #team .team-role {
-  margin: 5px 0 0;
+  margin: 4px 0 0;
   padding: 0;
   color: var(--p-muted);
   background: transparent;
@@ -117,26 +128,14 @@
   text-transform: uppercase;
 }
 
-#team .team-blurb {
-  margin: 0;
-  padding: 0;
-  max-width: 38ch;
-  color: var(--p-muted);
-  background: transparent;
-  font-size: 0.9rem;
-  font-weight: 400;
-  line-height: 1.6;
-  letter-spacing: 0;
-}
-
-/* Pinned to the bottom so the two cards that have no bio yet line up with the
-   two that do, instead of leaving a ragged gap mid-card. */
+/* Pushed to the right edge so a wide card has no dead middle. */
 #team .team-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 18px;
+  flex: 0 0 auto;
+  gap: 8px;
+  margin: 0 0 0 auto;
+  padding: 0;
 }
 
 /* polish.css disables these while every href was "#". They are real profile
@@ -184,6 +183,7 @@
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  white-space: nowrap;
   cursor: pointer;
   transition: background 160ms, border-color 160ms;
 }
@@ -327,21 +327,25 @@
 
 /* ------------------------------------------------------------ responsive */
 
-@media (max-width: 560px) {
-  #team .team-card {
-    padding: 22px;
+/* Below this the name and the two buttons stop fitting on one line, so the
+   actions drop under the name rather than squeezing it. */
+@media (max-width: 420px) {
+  #team .team-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  #team .team-actions {
+    margin-left: 0;
   }
 
   #team .team-card .team-photo,
   #team .team-card:nth-child(2) .team-photo,
   #team .team-card:nth-child(3) .team-photo,
   #team .team-card:nth-child(4) .team-photo {
-    width: 80px;
-    height: 80px;
-  }
-
-  #team .team-blurb {
-    max-width: none;
+    width: 64px;
+    height: 64px;
   }
 }
 
