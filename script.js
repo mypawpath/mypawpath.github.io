@@ -90,3 +90,41 @@ if (!motionQuery.matches) {
 
   revealItems.forEach((item) => revealObserver.observe(item));
 }
+
+/* Team bios — native <dialog>, so focus trapping and Escape come for free.
+   What is NOT free: returning focus to the trigger, closing on a backdrop
+   click, and stopping the page behind from scrolling. */
+const bioTriggers = document.querySelectorAll(".team-bio-open");
+
+if (bioTriggers.length && typeof HTMLDialogElement === "function") {
+  let lastTrigger = null;
+
+  const closeBio = (dialog) => {
+    if (dialog?.open) dialog.close();
+  };
+
+  bioTriggers.forEach((trigger) => {
+    const dialog = document.getElementById(trigger.dataset.bioTarget);
+    if (!dialog) return;
+
+    trigger.addEventListener("click", () => {
+      lastTrigger = trigger;
+      document.body.style.overflow = "hidden";
+      dialog.showModal();
+    });
+
+    dialog.addEventListener("close", () => {
+      document.body.style.overflow = "";
+      lastTrigger?.focus();
+      lastTrigger = null;
+    });
+
+    dialog.querySelector("[data-bio-close]")?.addEventListener("click", () => closeBio(dialog));
+
+    // A click that lands on the dialog element itself rather than on its inner
+    // panel is a click on the backdrop.
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) closeBio(dialog);
+    });
+  });
+}

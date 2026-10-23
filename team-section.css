@@ -1,0 +1,332 @@
+/* Team section — larger cards plus a full-bio dialog.
+   Loaded LAST so it wins over the four-up grid and the small type in
+   polish.css. Kept in its own file so the whole treatment can be reverted by
+   deleting one <link>. Selectors are scoped under #team so nothing else on the
+   page can be caught by them. */
+
+#team .team-heading {
+  max-width: 44ch;
+}
+
+/* Two up instead of four. Each card roughly doubles in width, which is the
+   actual fix for "the cards feel small" — the old four-column grid left each
+   card about 270px wide on a 1194px container. */
+#team .team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: clamp(36px, 5vw, 52px);
+}
+
+#team .team-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: clamp(18px, 2.2vw, 26px);
+  padding: clamp(20px, 2.4vw, 28px);
+  border: 1px solid var(--p-border);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: none;
+  transition: border-color 160ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+#team .team-card:hover {
+  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 22%);
+  transform: none;
+  box-shadow: none;
+}
+
+/* The old rules gave each photo a per-card gradient plate and a 1.18/1 box.
+   Both are wrong for a square portrait, so they are reset here rather than
+   edited in place in polish.css. */
+#team .team-card .team-photo,
+#team .team-card:nth-child(2) .team-photo,
+#team .team-card:nth-child(3) .team-photo,
+#team .team-card:nth-child(4) .team-photo {
+  flex: 0 0 auto;
+  width: clamp(96px, 11vw, 124px);
+  height: clamp(96px, 11vw, 124px);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--p-sage);
+}
+
+#team .team-card .team-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#team .team-info {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+#team .team-info h3 {
+  margin: 0;
+  color: var(--p-fg);
+  font-family: var(--p-display);
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Uppercase needs real tracking or the counters collide. */
+#team .team-role {
+  margin: 2px 0 0;
+  color: var(--p-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+}
+
+#team .team-blurb {
+  margin: 0;
+  max-width: 42ch;
+  color: var(--p-muted);
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+#team .team-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* polish.css disables these while the hrefs were all "#". They are real
+   profile links now, so the pointer events come back. */
+#team .team-linkedin {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--p-border);
+  border-radius: 10px;
+  color: var(--p-muted);
+  opacity: 1;
+  pointer-events: auto;
+  transition: color 160ms, border-color 160ms;
+}
+
+#team .team-linkedin:hover,
+#team .team-linkedin:focus-visible {
+  color: var(--p-fg);
+  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 28%);
+  transform: none;
+}
+
+#team .team-linkedin svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: currentColor;
+}
+
+/* Deliberately not the yellow accent: the hero already spends the page's
+   accent budget, so this stays in the deep neutral. */
+#team .team-bio-open {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 15px;
+  border: 1px solid var(--p-border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--p-deep);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 160ms, border-color 160ms;
+}
+
+#team .team-bio-open:hover,
+#team .team-bio-open:focus-visible {
+  background: var(--p-sage);
+  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 28%);
+}
+
+/* ---------------------------------------------------------------- dialog */
+
+.bio-dialog {
+  width: min(560px, calc(100vw - 32px));
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: var(--p-surface, #fff);
+  color: var(--p-fg);
+  box-shadow: 0 32px 80px rgba(23, 33, 38, 0.26);
+}
+
+.bio-dialog::backdrop {
+  background: rgba(23, 33, 38, 0.46);
+  backdrop-filter: blur(3px);
+}
+
+.bio-dialog-inner {
+  position: relative; /* anchors the close button */
+  padding: clamp(24px, 4vw, 36px);
+}
+
+.bio-dialog-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 44px; /* keeps the name clear of the close button */
+}
+
+.bio-dialog-head img {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--p-sage);
+}
+
+.bio-dialog h3 {
+  margin: 0;
+  font-family: var(--p-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.bio-dialog .bio-dialog-role {
+  margin: 4px 0 0;
+  color: var(--p-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+}
+
+.bio-dialog-body {
+  margin-top: 20px;
+}
+
+.bio-dialog-body p {
+  margin: 0 0 14px;
+  max-width: 60ch;
+  color: var(--p-fg);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.bio-dialog-body p:last-child {
+  margin-bottom: 0;
+}
+
+.bio-awards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.bio-awards li {
+  padding: 5px 11px;
+  border: 1px solid var(--p-border);
+  border-radius: 999px;
+  color: var(--p-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.bio-dialog-foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--p-border);
+}
+
+.bio-dialog-foot a {
+  color: var(--p-deep);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.bio-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--p-muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bio-dialog-close:hover,
+.bio-dialog-close:focus-visible {
+  background: var(--p-sage);
+  color: var(--p-fg);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 900px) {
+  #team .team-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+}
+
+/* Below this the horizontal card gets too cramped for the blurb, so it
+   stacks and the photo grows back to a comfortable size. */
+@media (max-width: 480px) {
+  #team .team-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  #team .team-card .team-photo,
+  #team .team-card:nth-child(2) .team-photo,
+  #team .team-card:nth-child(3) .team-photo,
+  #team .team-card:nth-child(4) .team-photo {
+    width: 88px;
+    height: 88px;
+  }
+
+  #team .team-blurb {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #team .team-card,
+  #team .team-linkedin,
+  #team .team-bio-open {
+    transition: none;
+  }
+}
