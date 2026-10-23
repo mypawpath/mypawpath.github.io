@@ -1,56 +1,66 @@
 /* Team section — larger cards plus a full-bio dialog.
    Loaded LAST so it wins over the four-up grid and the small type in
    polish.css. Kept in its own file so the whole treatment can be reverted by
-   deleting one <link>. Selectors are scoped under #team so nothing else on the
-   page can be caught by them. */
+   deleting one <link>. Everything is scoped under #team so no other section
+   can be caught by these selectors. */
 
 #team .team-heading {
-  max-width: 44ch;
+  max-width: 46ch;
 }
 
-/* Two up instead of four. Each card roughly doubles in width, which is the
-   actual fix for "the cards feel small" — the old four-column grid left each
-   card about 270px wide on a 1194px container. */
+/* Two up on desktop, one up when there is not room for two 420px columns.
+   auto-fit rather than a hard column count so the preview pane and real
+   breakpoints agree without a separate media query. */
 #team .team-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  margin-top: clamp(36px, 5vw, 52px);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 18px;
+  margin-top: clamp(32px, 4.5vw, 48px);
+  align-items: stretch;
 }
 
 #team .team-card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
-  gap: clamp(18px, 2.2vw, 26px);
-  padding: clamp(20px, 2.4vw, 28px);
+  gap: 0;
+  overflow: visible;
+  padding: clamp(24px, 2.6vw, 32px);
   border: 1px solid var(--p-border);
   border-radius: 18px;
   background: #fff;
   box-shadow: none;
+  text-align: left;
   transition: border-color 160ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 #team .team-card:hover {
-  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 22%);
+  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 24%);
   transform: none;
   box-shadow: none;
 }
 
-/* The old rules gave each photo a per-card gradient plate and a 1.18/1 box.
-   Both are wrong for a square portrait, so they are reset here rather than
-   edited in place in polish.css. */
+/* The avatars are opaque PNGs: a white square with a coloured disc painted on
+   it. Framing them in a rounded rectangle produced a disc inside a plate
+   inside a card. Clipping to a circle removes the middle frame, and a real
+   headshot reads fine in the same circle. */
 #team .team-card .team-photo,
 #team .team-card:nth-child(2) .team-photo,
 #team .team-card:nth-child(3) .team-photo,
 #team .team-card:nth-child(4) .team-photo {
-  flex: 0 0 auto;
-  width: clamp(96px, 11vw, 124px);
-  height: clamp(96px, 11vw, 124px);
-  aspect-ratio: 1 / 1;
+  display: block;
+  position: static;
+  width: clamp(88px, 10vw, 108px);
+  height: clamp(88px, 10vw, 108px);
+  min-height: 0;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  border-radius: 14px;
+  border: 0;
+  border-radius: 50%;
   background: var(--p-sage);
+  box-shadow: none;
+  aspect-ratio: 1 / 1;
 }
 
 #team .team-card .team-photo img {
@@ -60,30 +70,47 @@
   display: block;
 }
 
+/* styles.css styles .team-info as a floating white panel that overlaps the
+   photo: negative top margin, inset width, its own border and shadow. All of
+   that has to be zeroed explicitly or it shows through as a box inside the
+   card. */
 #team .team-info {
+  position: static;
+  z-index: auto; /* the old rule raised it to float above the photo */
   display: flex;
+  width: 100%;
+  min-height: 0;
   flex: 1 1 auto;
-  min-width: 0;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: flex-start;
   gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 #team .team-info h3 {
   margin: 0;
   color: var(--p-fg);
   font-family: var(--p-display);
-  font-size: 1.22rem;
+  font-size: 1.3rem;
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
 }
 
-/* Uppercase needs real tracking or the counters collide. */
+/* Uppercase without tracking looks cramped; 0.085em is inside the 0.06-0.1em
+   band that caps are meant to sit in. */
 #team .team-role {
-  margin: 2px 0 0;
+  margin: 5px 0 0;
+  padding: 0;
   color: var(--p-muted);
-  font-size: 0.7rem;
+  background: transparent;
+  font-size: 0.68rem;
   font-weight: 600;
   line-height: 1.4;
   letter-spacing: 0.085em;
@@ -92,31 +119,37 @@
 
 #team .team-blurb {
   margin: 0;
-  max-width: 42ch;
+  padding: 0;
+  max-width: 38ch;
   color: var(--p-muted);
-  font-size: 0.88rem;
+  background: transparent;
+  font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
   letter-spacing: 0;
 }
 
+/* Pinned to the bottom so the two cards that have no bio yet line up with the
+   two that do, instead of leaving a ragged gap mid-card. */
 #team .team-actions {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 4px;
+  margin-top: auto;
+  padding-top: 18px;
 }
 
-/* polish.css disables these while the hrefs were all "#". They are real
-   profile links now, so the pointer events come back. */
+/* polish.css disables these while every href was "#". They are real profile
+   links now. */
 #team .team-linkedin {
   display: grid;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   flex: 0 0 auto;
   place-items: center;
   border: 1px solid var(--p-border);
   border-radius: 10px;
+  background: transparent;
   color: var(--p-muted);
   opacity: 1;
   pointer-events: auto;
@@ -126,7 +159,7 @@
 #team .team-linkedin:hover,
 #team .team-linkedin:focus-visible {
   color: var(--p-fg);
-  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 28%);
+  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 30%);
   transform: none;
 }
 
@@ -136,13 +169,13 @@
   fill: currentColor;
 }
 
-/* Deliberately not the yellow accent: the hero already spends the page's
+/* Deliberately not the yellow accent — the hero already spends the page's
    accent budget, so this stays in the deep neutral. */
 #team .team-bio-open {
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
-  padding: 0 15px;
+  min-height: 38px;
+  padding: 0 16px;
   border: 1px solid var(--p-border);
   border-radius: 10px;
   background: transparent;
@@ -158,7 +191,7 @@
 #team .team-bio-open:hover,
 #team .team-bio-open:focus-visible {
   background: var(--p-sage);
-  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 28%);
+  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 30%);
 }
 
 /* ---------------------------------------------------------------- dialog */
@@ -168,7 +201,7 @@
   padding: 0;
   border: 0;
   border-radius: 20px;
-  background: var(--p-surface, #fff);
+  background: #fff;
   color: var(--p-fg);
   box-shadow: 0 32px 80px rgba(23, 33, 38, 0.26);
 }
@@ -194,7 +227,7 @@
   width: 64px;
   height: 64px;
   flex: 0 0 auto;
-  border-radius: 12px;
+  border-radius: 50%;
   object-fit: cover;
   background: var(--p-sage);
 }
@@ -209,16 +242,16 @@
 }
 
 .bio-dialog .bio-dialog-role {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
   color: var(--p-muted);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.085em;
   text-transform: uppercase;
 }
 
 .bio-dialog-body {
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .bio-dialog-body p {
@@ -237,7 +270,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 18px;
+  margin-top: 20px;
   padding: 0;
   list-style: none;
 }
@@ -274,8 +307,8 @@
   top: 14px;
   right: 14px;
   display: grid;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   place-items: center;
   border: 0;
   border-radius: 50%;
@@ -294,28 +327,17 @@
 
 /* ------------------------------------------------------------ responsive */
 
-@media (max-width: 900px) {
-  #team .team-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
-  }
-}
-
-/* Below this the horizontal card gets too cramped for the blurb, so it
-   stacks and the photo grows back to a comfortable size. */
-@media (max-width: 480px) {
+@media (max-width: 560px) {
   #team .team-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    padding: 22px;
   }
 
   #team .team-card .team-photo,
   #team .team-card:nth-child(2) .team-photo,
   #team .team-card:nth-child(3) .team-photo,
   #team .team-card:nth-child(4) .team-photo {
-    width: 88px;
-    height: 88px;
+    width: 80px;
+    height: 80px;
   }
 
   #team .team-blurb {
