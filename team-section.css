@@ -10,6 +10,39 @@
    entirely in the dialog, so all four cards carry identical content and the
    row is short enough that a bare right edge reads as spacing, not a hole. */
 
+/* ---------------------------------------------- separating team from promise
+
+   The page runs four white sections back to back (#system, #app,
+   #promise-section, #team). The promise/team boundary was the one that failed:
+   same white, same centred display headline, same centred subtitle, so the
+   space between them read as empty page rather than a section break.
+
+   Team moves onto the warm paper canvas #platform already uses. That also
+   earns the cards their shape — white cards on a white page were outlined
+   rectangles; on paper they read as raised surfaces. */
+#team.team-section {
+  background: var(--p-bg);
+  border-top: 1px solid var(--p-border);
+}
+
+/* The hierarchy was inverted: "The Team Behind PawPath" rendered larger than
+   the promise statement above it. A section label should not out-shout the
+   page's core claim, so this drops to section-header scale while the promise
+   keeps the display scale. */
+#team .team-heading h2 {
+  max-width: 18ch;
+  font-size: clamp(1.85rem, 2.9vw, 2.5rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+}
+
+/* With a surface change carrying the break, the stacked padding does not need
+   to. It was leaving roughly 200px of blank white between the two headlines. */
+#team > .site-container {
+  padding-top: clamp(4rem, 6vw, 5.5rem) !important;
+  padding-bottom: clamp(4rem, 6vw, 5.5rem) !important;
+}
+
 #team .team-heading {
   max-width: 46ch;
 }
