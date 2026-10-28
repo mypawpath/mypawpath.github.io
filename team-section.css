@@ -27,15 +27,31 @@
    space between them read as empty page rather than a section break. */
 #team.team-section {
   /* The portrait cut-outs are composited onto this exact value, so the plate
-     behind a loading image and the plate inside it are one colour. It is a
-     deeper sage than --p-sage on purpose: measured against the --p-bg canvas,
-     --p-sage came to 1.08:1, which left every portrait with no edge at all. */
+     behind a loading image and the plate inside it are one colour. */
   --team-plate: #7eb29b;
+  --team-ink: #fffdf5;
+  --team-ink-soft: #c3d2d4;
+  --team-ink-muted: #a9bcc0;
 
-  background: var(--p-bg);
-  /* --p-border composites to 1.24:1 here — invisible, so the section break it
-     was meant to draw was not being drawn. */
-  border-top: 1px solid rgba(47, 76, 85, 0.3);
+  /* A dark band. Paper did not work: the footer's winning rule is also
+     background: var(--p-bg), so the section and the footer were the same
+     #fffdf5 and the team block never terminated — it just ran into the
+     footer. Measured, this band is 9.19:1 against the white sections above
+     and 9.02:1 against the paper footer below, so it reads as its own band
+     in both directions. It also fixes the plate: #7eb29b sits at 3.82:1 here,
+     over the 3:1 bar it could not reach on paper without turning loud. */
+  background: var(--p-deep);
+  border-top: 0;
+  color: var(--team-ink);
+}
+
+#team .team-heading h2,
+#team .team-info h3 {
+  color: var(--team-ink);
+}
+
+#team .team-heading p {
+  color: var(--team-ink-soft);
 }
 
 /* The hierarchy was inverted: "The Team Behind PawPath" rendered larger than
@@ -60,11 +76,17 @@
 
 /* ------------------------------------------------------------ portrait wall */
 
+/* Capped so a column stays close to the portrait's own width. Without this
+   the four-up grid spread each column to ~300px and the two-up to ~590px,
+   leaving most of every column empty — the section read as four avatars
+   adrift rather than a wall. */
 #team .team-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(28px, 3vw, 40px) clamp(20px, 2.4vw, 32px);
-  margin-top: clamp(40px, 5vw, 60px);
+  gap: clamp(32px, 3.5vw, 44px) clamp(20px, 2.4vw, 30px);
+  width: 100%;
+  max-width: 1000px;
+  margin: clamp(40px, 5vw, 60px) auto 0;
   align-items: start;
 }
 
@@ -99,7 +121,7 @@
   display: block;
   position: static;
   width: 100%;
-  max-width: 168px;
+  max-width: 200px;
   height: auto;
   min-height: 0;
   margin: 0;
@@ -150,7 +172,7 @@
 
 #team .team-info h3 {
   margin: 0;
-  color: var(--p-fg);
+  color: var(--team-ink);
   font-family: var(--p-display);
   font-size: 1.05rem;
   font-weight: 600;
@@ -163,7 +185,7 @@
 #team .team-role {
   margin: 5px 0 0;
   padding: 0;
-  color: var(--p-muted);
+  color: var(--team-ink-muted);
   background: transparent;
   font-size: 0.7rem;
   font-weight: 600;
@@ -193,7 +215,7 @@
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--p-muted);
+  color: var(--team-ink-muted);
   opacity: 1;
   pointer-events: auto;
   transition: color 160ms, background 160ms;
@@ -201,8 +223,8 @@
 
 #team .team-linkedin:hover,
 #team .team-linkedin:focus-visible {
-  color: var(--p-fg);
-  background: color-mix(in oklch, var(--p-sage), transparent 35%);
+  color: var(--team-ink);
+  background: rgba(255, 253, 245, 0.12);
   border: 0;
   transform: none;
 }
@@ -223,7 +245,7 @@
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--p-deep);
+  color: var(--team-ink);
   font-family: inherit;
   font-size: 0.78rem;
   font-weight: 600;
@@ -232,14 +254,14 @@
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in oklch, var(--p-deep), transparent 60%);
+  text-decoration-color: rgba(255, 253, 245, 0.45);
   cursor: pointer;
   transition: background 160ms, text-decoration-color 160ms;
 }
 
 #team .team-bio-open:hover,
 #team .team-bio-open:focus-visible {
-  background: color-mix(in oklch, var(--p-sage), transparent 35%);
+  background: rgba(255, 253, 245, 0.12);
   border: 0;
   text-decoration-color: currentColor;
 }
@@ -380,14 +402,15 @@
 @media (max-width: 980px) {
   #team .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(28px, 5vw, 40px) clamp(18px, 4vw, 28px);
+    gap: clamp(32px, 5vw, 44px) clamp(18px, 4vw, 28px);
+    max-width: 480px;
   }
 
   #team .team-card .team-photo,
   #team .team-card:nth-child(2) .team-photo,
   #team .team-card:nth-child(3) .team-photo,
   #team .team-card:nth-child(4) .team-photo {
-    max-width: 150px;
+    max-width: 190px;
   }
 }
 
@@ -398,7 +421,7 @@
   #team .team-card:nth-child(2) .team-photo,
   #team .team-card:nth-child(3) .team-photo,
   #team .team-card:nth-child(4) .team-photo {
-    max-width: 116px;
+    max-width: 132px;
   }
 
   #team .team-info h3 {
