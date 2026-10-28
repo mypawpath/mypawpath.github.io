@@ -1,25 +1,30 @@
-/* Team section — compact person rows plus a full-bio dialog.
-   Loaded LAST so it wins over the four-up grid and the small type in
+/* Team section — a portrait wall plus a full-bio dialog.
+   Loaded LAST so it wins over the small type and four-up card grid in
    polish.css. Kept in its own file so the whole treatment reverts by deleting
    one <link>. Everything is scoped under #team.
 
-   Shape: avatar left, name + role in the middle, actions pushed to the right
-   edge. Two earlier passes failed on the same thing — half the team has no bio
-   and no profile link yet, so any layout that reserves a block for body copy
-   leaves those cards as empty boxes. Nothing is reserved here: the bio lives
-   entirely in the dialog, so all four cards carry identical content and the
-   row is short enough that a bare right edge reads as spacing, not a hole. */
+   History worth keeping, because two earlier shapes failed here:
+
+   1. Wide two-up cards with a one-line blurb. Half the team has no bio and no
+      profile link yet, so those cards rendered as empty boxes.
+   2. Compact rows with the blurb removed. That fixed the empty box by removing
+      content, and left four thin outlined bars — card border, avatar ring, and
+      two outlined buttons floating in dead space at the right edge. It read
+      like an admin table, and the 76px avatars were thumbnails rather than
+      portraits.
+
+   This pass gives the work to the photographs. The portraits are already cut
+   out on one flat colour, so shown large they carry the section on their own
+   and no border is needed to hold a card together. Nothing is reserved for
+   copy, so the two people still missing a bio lose one small line rather than
+   half a card. */
 
 /* ---------------------------------------------- separating team from promise
 
    The page runs four white sections back to back (#system, #app,
    #promise-section, #team). The promise/team boundary was the one that failed:
    same white, same centred display headline, same centred subtitle, so the
-   space between them read as empty page rather than a section break.
-
-   Team moves onto the warm paper canvas #platform already uses. That also
-   earns the cards their shape — white cards on a white page were outlined
-   rectangles; on paper they read as raised surfaces. */
+   space between them read as empty page rather than a section break. */
 #team.team-section {
   background: var(--p-bg);
   border-top: 1px solid var(--p-border);
@@ -27,8 +32,7 @@
 
 /* The hierarchy was inverted: "The Team Behind PawPath" rendered larger than
    the promise statement above it. A section label should not out-shout the
-   page's core claim, so this drops to section-header scale while the promise
-   keeps the display scale. */
+   page's core claim. */
 #team .team-heading h2 {
   max-width: 18ch;
   font-size: clamp(1.85rem, 2.9vw, 2.5rem);
@@ -36,8 +40,6 @@
   letter-spacing: -0.02em;
 }
 
-/* With a surface change carrying the break, the stacked padding does not need
-   to. It was leaving roughly 200px of blank white between the two headlines. */
 #team > .site-container {
   padding-top: clamp(4rem, 6vw, 5.5rem) !important;
   padding-bottom: clamp(4rem, 6vw, 5.5rem) !important;
@@ -45,50 +47,52 @@
 
 #team .team-heading {
   max-width: 46ch;
+  margin-bottom: 0;
 }
+
+/* ------------------------------------------------------------ portrait wall */
 
 #team .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
-  gap: 14px;
-  margin-top: clamp(32px, 4.5vw, 48px);
-  align-items: stretch;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(28px, 3vw, 40px) clamp(20px, 2.4vw, 32px);
+  margin-top: clamp(40px, 5vw, 60px);
+  align-items: start;
 }
 
+/* No border, no fill, no padding box. The portrait is the card. Four outlined
+   rectangles on a tinted page was the previous pass's main tell. */
 #team .team-card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(16px, 1.8vw, 20px);
+  gap: 0;
   overflow: visible;
-  padding: 18px clamp(18px, 2vw, 24px);
-  border: 1px solid var(--p-border);
-  border-radius: 16px;
-  background: #fff;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
-  text-align: left;
-  transition: border-color 160ms cubic-bezier(0.2, 0, 0, 1);
+  text-align: center;
 }
 
 #team .team-card:hover {
-  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 24%);
+  border: 0;
   transform: none;
   box-shadow: none;
 }
 
-/* The avatars are opaque PNGs — a white square with a coloured disc painted
-   on it. A rounded-rectangle frame around that reads as a disc inside a plate
-   inside a card, so they clip to a circle instead. A real headshot sits in the
-   same circle without looking out of place. */
+/* Large enough to read as a portrait. The cut-out background and the circle
+   are the same --p-sage, so the plate and the crop are one shape. */
 #team .team-card .team-photo,
 #team .team-card:nth-child(2) .team-photo,
 #team .team-card:nth-child(3) .team-photo,
 #team .team-card:nth-child(4) .team-photo {
   display: block;
   position: static;
-  width: 76px;
-  height: 76px;
-  flex: 0 0 auto;
+  width: 100%;
+  max-width: 168px;
+  height: auto;
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -98,6 +102,7 @@
   background: var(--p-sage);
   box-shadow: none;
   aspect-ratio: 1 / 1;
+  transition: transform 220ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 #team .team-card .team-photo img {
@@ -107,22 +112,22 @@
   display: block;
 }
 
-/* styles.css styles .team-info as a floating white panel that overlaps the
-   photo: inset width, a -38px top margin, its own fill, border and shadow.
-   Every one of those has to be zeroed or it shows through as a box inside the
-   card. */
+#team .team-card:hover .team-photo {
+  transform: translateY(-3px);
+}
+
 #team .team-info {
   position: static;
   z-index: auto;
   display: flex;
-  width: auto;
+  width: 100%;
   min-height: 0;
-  flex: 1 1 auto;
-  flex-direction: row;
+  flex: 0 1 auto;
+  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 16px;
-  margin: 0;
+  gap: 0;
+  margin: 18px 0 0;
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -130,10 +135,8 @@
   box-shadow: none;
 }
 
-/* The name/role stack. min-width:0 lets a long name ellipsise instead of
-   forcing the actions off the card. */
 #team .team-info > div:first-child {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-width: 0;
 }
 
@@ -141,63 +144,64 @@
   margin: 0;
   color: var(--p-fg);
   font-family: var(--p-display);
-  font-size: 1.12rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
 }
 
-/* Uppercase without tracking looks cramped; 0.085em sits inside the band caps
+/* Uppercase without tracking looks cramped; 0.09em sits inside the band caps
    are meant to occupy. */
 #team .team-role {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
   padding: 0;
   color: var(--p-muted);
   background: transparent;
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 600;
   line-height: 1.4;
-  letter-spacing: 0.085em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
-/* Pushed to the right edge so a wide card has no dead middle. */
 #team .team-actions {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex: 0 0 auto;
-  gap: 8px;
-  margin: 0 0 0 auto;
+  gap: 4px;
+  margin: 12px 0 0;
   padding: 0;
 }
 
-/* polish.css disables these while every href was "#". They are real profile
-   links now. */
+/* Both controls are unboxed now. Four nested outlines per card — card, avatar,
+   icon button, text button — was most of why this read as a wireframe. */
 #team .team-linkedin {
   display: grid;
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   flex: 0 0 auto;
   place-items: center;
-  border: 1px solid var(--p-border);
-  border-radius: 10px;
+  border: 0;
+  border-radius: 8px;
   background: transparent;
   color: var(--p-muted);
   opacity: 1;
   pointer-events: auto;
-  transition: color 160ms, border-color 160ms;
+  transition: color 160ms, background 160ms;
 }
 
 #team .team-linkedin:hover,
 #team .team-linkedin:focus-visible {
   color: var(--p-fg);
-  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 30%);
+  background: color-mix(in oklch, var(--p-sage), transparent 35%);
+  border: 0;
   transform: none;
 }
 
 #team .team-linkedin svg {
-  width: 1.05rem;
-  height: 1.05rem;
+  width: 1rem;
+  height: 1rem;
   fill: currentColor;
 }
 
@@ -206,25 +210,30 @@
 #team .team-bio-open {
   display: inline-flex;
   align-items: center;
-  min-height: 38px;
-  padding: 0 16px;
-  border: 1px solid var(--p-border);
-  border-radius: 10px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
   background: transparent;
   color: var(--p-deep);
   font-family: inherit;
   font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in oklch, var(--p-deep), transparent 60%);
   cursor: pointer;
-  transition: background 160ms, border-color 160ms;
+  transition: background 160ms, text-decoration-color 160ms;
 }
 
 #team .team-bio-open:hover,
 #team .team-bio-open:focus-visible {
-  background: var(--p-sage);
-  border-color: color-mix(in oklch, var(--p-border), var(--p-fg) 30%);
+  background: color-mix(in oklch, var(--p-sage), transparent 35%);
+  border: 0;
+  text-decoration-color: currentColor;
 }
 
 /* ---------------------------------------------------------------- dialog */
@@ -360,32 +369,43 @@
 
 /* ------------------------------------------------------------ responsive */
 
-/* Below this the name and the two buttons stop fitting on one line, so the
-   actions drop under the name rather than squeezing it. */
-@media (max-width: 420px) {
-  #team .team-info {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  #team .team-actions {
-    margin-left: 0;
+@media (max-width: 980px) {
+  #team .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(28px, 5vw, 40px) clamp(18px, 4vw, 28px);
   }
 
   #team .team-card .team-photo,
   #team .team-card:nth-child(2) .team-photo,
   #team .team-card:nth-child(3) .team-photo,
   #team .team-card:nth-child(4) .team-photo {
-    width: 64px;
-    height: 64px;
+    max-width: 150px;
+  }
+}
+
+/* Two portraits still read fine at phone width; one per row would make the
+   section needlessly long. */
+@media (max-width: 420px) {
+  #team .team-card .team-photo,
+  #team .team-card:nth-child(2) .team-photo,
+  #team .team-card:nth-child(3) .team-photo,
+  #team .team-card:nth-child(4) .team-photo {
+    max-width: 116px;
+  }
+
+  #team .team-info h3 {
+    font-size: 0.98rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #team .team-card,
+  #team .team-card .team-photo,
   #team .team-linkedin,
   #team .team-bio-open {
     transition: none;
+  }
+
+  #team .team-card:hover .team-photo {
+    transform: none;
   }
 }
