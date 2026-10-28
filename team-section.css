@@ -26,8 +26,16 @@
    same white, same centred display headline, same centred subtitle, so the
    space between them read as empty page rather than a section break. */
 #team.team-section {
+  /* The portrait cut-outs are composited onto this exact value, so the plate
+     behind a loading image and the plate inside it are one colour. It is a
+     deeper sage than --p-sage on purpose: measured against the --p-bg canvas,
+     --p-sage came to 1.08:1, which left every portrait with no edge at all. */
+  --team-plate: #7eb29b;
+
   background: var(--p-bg);
-  border-top: 1px solid var(--p-border);
+  /* --p-border composites to 1.24:1 here — invisible, so the section break it
+     was meant to draw was not being drawn. */
+  border-top: 1px solid rgba(47, 76, 85, 0.3);
 }
 
 /* The hierarchy was inverted: "The Team Behind PawPath" rendered larger than
@@ -83,7 +91,7 @@
 }
 
 /* Large enough to read as a portrait. The cut-out background and the circle
-   are the same --p-sage, so the plate and the crop are one shape. */
+   are both --team-plate, so the plate and the crop are one shape. */
 #team .team-card .team-photo,
 #team .team-card:nth-child(2) .team-photo,
 #team .team-card:nth-child(3) .team-photo,
@@ -99,7 +107,7 @@
   overflow: hidden;
   border: 0;
   border-radius: 50%;
-  background: var(--p-sage);
+  background: var(--team-plate);
   box-shadow: none;
   aspect-ratio: 1 / 1;
   transition: transform 220ms cubic-bezier(0.2, 0, 0, 1);
@@ -157,7 +165,7 @@
   padding: 0;
   color: var(--p-muted);
   background: transparent;
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   font-weight: 600;
   line-height: 1.4;
   letter-spacing: 0.09em;
@@ -271,7 +279,7 @@
   flex: 0 0 auto;
   border-radius: 50%;
   object-fit: cover;
-  background: var(--p-sage);
+  background: #7eb29b;
 }
 
 .bio-dialog h3 {
