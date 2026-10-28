@@ -26,33 +26,42 @@
    same white, same centred display headline, same centred subtitle, so the
    space between them read as empty page rather than a section break. */
 #team.team-section {
-  /* The portrait cut-outs are composited onto this exact value, so the plate
-     behind a loading image and the plate inside it are one colour. */
+  /* The portrait cut-outs are composited onto this exact value. */
   --team-plate: #7eb29b;
-  --team-ink: #fffdf5;
-  --team-ink-soft: #c3d2d4;
-  --team-ink-muted: #a9bcc0;
 
-  /* A dark band. Paper did not work: the footer's winning rule is also
-     background: var(--p-bg), so the section and the footer were the same
-     #fffdf5 and the team block never terminated — it just ran into the
-     footer. Measured, this band is 9.19:1 against the white sections above
-     and 9.02:1 against the paper footer below, so it reads as its own band
-     in both directions. It also fixes the plate: #7eb29b sits at 3.82:1 here,
-     over the 3:1 bar it could not reach on paper without turning loud. */
-  background: var(--p-deep);
-  border-top: 0;
-  color: var(--team-ink);
+  /* A soft band, not a dark one. Scored against four constraints at once
+     instead of picked by eye:
+
+       vs #ffffff (promise, above)   1.23
+       vs #fffdf5 (footer, below)    1.21
+       portrait plate on it          1.95
+       --p-fg name on it            13.28
+
+     The binding constraint was never the band — it was --p-muted. At #64716e
+     that token falls to 4.12:1 on any tint dark enough to separate from both
+     neighbours, which is why the only options that ever passed were a band so
+     pale it matched the footer, or one dark enough to feel heavy. The section
+     uses its own darker muted instead, and the band can then stay light. */
+  --team-band: #dcebe2;
+  --team-muted: #44514e;
+
+  background: var(--team-band);
+  /* Both edges, so the band terminates against the footer as well as opening
+     against the white above. --p-border composites to 1.24:1 and drew nothing. */
+  border-top: 1px solid rgba(47, 76, 85, 0.32);
+  border-bottom: 1px solid rgba(47, 76, 85, 0.32);
+  color: var(--p-fg);
 }
 
 #team .team-heading h2,
 #team .team-info h3 {
-  color: var(--team-ink);
+  color: var(--p-fg);
 }
 
 #team .team-heading p {
-  color: var(--team-ink-soft);
+  color: var(--team-muted);
 }
+
 
 /* The hierarchy was inverted: "The Team Behind PawPath" rendered larger than
    the promise statement above it. A section label should not out-shout the
@@ -172,7 +181,7 @@
 
 #team .team-info h3 {
   margin: 0;
-  color: var(--team-ink);
+  color: var(--p-fg);
   font-family: var(--p-display);
   font-size: 1.05rem;
   font-weight: 600;
@@ -185,7 +194,7 @@
 #team .team-role {
   margin: 5px 0 0;
   padding: 0;
-  color: var(--team-ink-muted);
+  color: var(--team-muted);
   background: transparent;
   font-size: 0.7rem;
   font-weight: 600;
@@ -215,7 +224,7 @@
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--team-ink-muted);
+  color: var(--team-muted);
   opacity: 1;
   pointer-events: auto;
   transition: color 160ms, background 160ms;
@@ -223,8 +232,8 @@
 
 #team .team-linkedin:hover,
 #team .team-linkedin:focus-visible {
-  color: var(--team-ink);
-  background: rgba(255, 253, 245, 0.12);
+  color: var(--p-fg);
+  background: rgba(47, 76, 85, 0.1);
   border: 0;
   transform: none;
 }
@@ -245,7 +254,7 @@
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--team-ink);
+  color: var(--p-deep);
   font-family: inherit;
   font-size: 0.78rem;
   font-weight: 600;
@@ -254,14 +263,14 @@
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
-  text-decoration-color: rgba(255, 253, 245, 0.45);
+  text-decoration-color: rgba(47, 76, 85, 0.45);
   cursor: pointer;
   transition: background 160ms, text-decoration-color 160ms;
 }
 
 #team .team-bio-open:hover,
 #team .team-bio-open:focus-visible {
-  background: rgba(255, 253, 245, 0.12);
+  background: rgba(47, 76, 85, 0.1);
   border: 0;
   text-decoration-color: currentColor;
 }
