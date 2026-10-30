@@ -1,118 +1,108 @@
-/* Team section — a portrait wall plus a full-bio dialog.
-   Loaded LAST so it wins over the small type and four-up card grid in
+/* Team section — a tight black-and-white portrait band.
+   Loaded LAST so it wins over the four-up card grid and small type in
    polish.css. Kept in its own file so the whole treatment reverts by deleting
    one <link>. Everything is scoped under #team.
 
-   History worth keeping, because two earlier shapes failed here:
+   Four earlier shapes failed here, and the reason each failed is worth
+   keeping:
 
-   1. Wide two-up cards with a one-line blurb. Half the team has no bio and no
-      profile link yet, so those cards rendered as empty boxes.
-   2. Compact rows with the blurb removed. That fixed the empty box by removing
-      content, and left four thin outlined bars — card border, avatar ring, and
-      two outlined buttons floating in dead space at the right edge. It read
-      like an admin table, and the 76px avatars were thumbnails rather than
-      portraits.
+   1. Wide two-up cards with a one-line blurb. Half the team has no bio, so
+      those cards rendered as empty boxes.
+   2. Compact rows with the blurb removed. Fixed the empty box by deleting
+      content; what was left read like an admin table — four thin outlined
+      bars with 76px thumbnails.
+   3. Circles on a tinted band. The plate colour was invented (it only existed
+      to match a disc the cat illustrations happened to ship with), so no value
+      of it ever looked right.
+   4. Five passes of re-picking that invented colour.
 
-   This pass gives the work to the photographs. The portraits are already cut
-   out on one flat colour, so shown large they carry the section on their own
-   and no border is needed to hold a card together. Nothing is reserved for
-   copy, so the two people still missing a bio lose one small line rather than
-   half a card. */
+   The mistake underneath all four was solving a SECTION SEPARATION problem
+   with colour. Award-winning team sections do not do that — they separate the
+   block with scale: a large display heading and a dense band of photographs.
+   The background is left plain and the colour problem stops existing.
 
-/* ---------------------------------------------- separating team from promise
+   So: no plate, no tinted band, no invented hue. The portraits are black and
+   white, which is also the standard fix for the real constraint here — three
+   photos shot in a studio, an indoor hallway and on a rooftop. Converted and
+   luminance-matched they read as one set. The page's gold accent stays the
+   only colour on the page. */
 
-   The page runs four white sections back to back (#system, #app,
-   #promise-section, #team). The promise/team boundary was the one that failed:
-   same white, same centred display headline, same centred subtitle, so the
-   space between them read as empty page rather than a section break. */
 #team.team-section {
-  /* Both values are mixes of --p-deep into --p-bg, so the section is built
-     from colours the page already uses rather than ones invented for it.
-
-     The previous palette was green, and it came from nowhere: the cat avatars
-     shipped with a sage disc, the cut-outs were matched to that, and the band
-     was then matched to the cut-outs. --p-sage is used exactly once in the
-     whole stylesheet, so the section's whole colour story rested on a dead
-     token while the page's real accent is the gold --p-accent (27 uses) that
-     paints the promise panel directly above this one.
-
-     Warm was not an option here. Mixing the gold into the cream gives more
-     cream, which is the same family as the footer — the exact failure that
-     made an earlier band run into it. This cool neutral separates from the
-     gold panel above (1.41) and the cream footer below (1.28) at once. */
-  --team-plate: #8f9d9f;
-  --team-band: #e0e2dd;
   --team-muted: #505d5a;
+  --team-slot: #e8e8e8;
 
-  background: var(--team-band);
-  /* Both edges, so the band terminates against the footer as well as opening
-     against the white above. --p-border composites to 1.24:1 and drew nothing. */
-  border-top: 1px solid rgba(47, 76, 85, 0.32);
-  border-bottom: 1px solid rgba(47, 76, 85, 0.32);
+  background: #fff;
+  /* Only the bottom edge. The white above is the same surface by design — the
+     heading and the photo band are what mark this section, not a fill. The
+     footer below is cream at 1.02:1, so that edge does need a line. */
+  border-top: 0;
+  border-bottom: 1px solid rgba(47, 76, 85, 0.3);
   color: var(--p-fg);
-}
-
-
-#team .team-heading h2,
-#team .team-info h3 {
-  color: var(--p-fg);
-}
-
-#team .team-heading p {
-  color: var(--team-muted);
-}
-
-
-/* The hierarchy was inverted: "The Team Behind PawPath" rendered larger than
-   the promise statement above it. A section label should not out-shout the
-   page's core claim. */
-#team .team-heading h2 {
-  max-width: 18ch;
-  font-size: clamp(1.85rem, 2.9vw, 2.5rem);
-  line-height: 1.14;
-  letter-spacing: -0.02em;
 }
 
 #team > .site-container {
-  padding-top: clamp(4rem, 6vw, 5.5rem) !important;
-  padding-bottom: clamp(4rem, 6vw, 5.5rem) !important;
+  padding-top: clamp(4.5rem, 7vw, 6.5rem) !important;
+  padding-bottom: clamp(4.5rem, 7vw, 6.5rem) !important;
 }
 
+/* ------------------------------------------------------------- masthead */
+
+/* Heading left, intro right — an editorial masthead rather than another
+   centred title stack. The promise section above is centred, so this is also
+   what tells the reader a new block has started. */
 #team .team-heading {
-  max-width: 46ch;
-  margin-bottom: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(20px, 4vw, 56px);
+  max-width: none;
+  margin: 0;
+  text-align: left;
 }
 
-/* ------------------------------------------------------------ portrait wall */
+#team .team-heading h2 {
+  max-width: 14ch;
+  margin: 0;
+  color: var(--p-fg);
+  font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-align: left;
+}
 
-/* Capped so a column stays close to the portrait's own width. Without this
-   the four-up grid spread each column to ~300px and the two-up to ~590px,
-   leaving most of every column empty — the section read as four avatars
-   adrift rather than a wall. */
+#team .team-heading p {
+  max-width: 42ch;
+  margin: 0 0 6px;
+  color: var(--team-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* --------------------------------------------------------- portrait band */
+
+/* Tight. The references run their portraits almost edge to edge; the previous
+   pass left ~420px of empty column around a 168px circle, which is what made
+   it read as four avatars adrift rather than one band. */
 #team .team-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(32px, 3.5vw, 44px) clamp(20px, 2.4vw, 30px);
+  gap: 10px;
   width: 100%;
-  max-width: 1000px;
-  margin: clamp(40px, 5vw, 60px) auto 0;
+  max-width: none;
+  margin: clamp(36px, 5vw, 56px) 0 0;
   align-items: start;
 }
 
-/* No border, no fill, no padding box. The portrait is the card. Four outlined
-   rectangles on a tinted page was the previous pass's main tell. */
 #team .team-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  overflow: visible;
+  display: block;
   padding: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  text-align: center;
+  text-align: left;
 }
 
 #team .team-card:hover {
@@ -121,8 +111,8 @@
   box-shadow: none;
 }
 
-/* Large enough to read as a portrait. The cut-out background and the circle
-   are both --team-plate, so the plate and the crop are one shape. */
+/* 4:5 rectangles, not circles. A circle crops the corners, which on a portrait
+   is exactly where the hair and the shoulder line are. */
 #team .team-card .team-photo,
 #team .team-card:nth-child(2) .team-photo,
 #team .team-card:nth-child(3) .team-photo,
@@ -130,18 +120,17 @@
   display: block;
   position: static;
   width: 100%;
-  max-width: 200px;
+  max-width: none;
   height: auto;
   min-height: 0;
   margin: 0;
   padding: 0;
   overflow: hidden;
   border: 0;
-  border-radius: 50%;
-  background: var(--team-plate);
+  border-radius: 2px;
+  background: var(--team-slot);
   box-shadow: none;
-  aspect-ratio: 1 / 1;
-  transition: transform 220ms cubic-bezier(0.2, 0, 0, 1);
+  aspect-ratio: 4 / 5;
 }
 
 #team .team-card .team-photo img {
@@ -149,80 +138,98 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  filter: grayscale(1);
+  transition: filter 260ms cubic-bezier(0.2, 0, 0, 1);
 }
 
-#team .team-card:hover .team-photo {
-  transform: translateY(-3px);
+/* The photographs are already monochrome files; this just removes any residual
+   cast and gives the band one live detail — colour returns on hover. */
+#team .team-card:hover .team-photo img {
+  filter: grayscale(0);
 }
 
 #team .team-info {
   position: static;
   z-index: auto;
-  display: flex;
+  display: block;
   width: 100%;
   min-height: 0;
-  flex: 0 1 auto;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0;
-  margin: 18px 0 0;
+  margin: 14px 0 0;
   padding: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+  text-align: left;
 }
 
-#team .team-info > div:first-child {
-  flex: 0 1 auto;
-  min-width: 0;
+/* A counter rather than hand-typed numbers, so reordering the cards cannot
+   leave the numbering wrong. */
+#team .team-grid {
+  counter-reset: teammate;
+}
+
+#team .team-card {
+  counter-increment: teammate;
+}
+
+#team .team-info > div:first-child::before {
+  content: counter(teammate, decimal-leading-zero);
+  display: block;
+  margin-bottom: 7px;
+  color: var(--team-muted);
+  font-family: var(--p-display);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
 }
 
 #team .team-info h3 {
   margin: 0;
   color: var(--p-fg);
   font-family: var(--p-display);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 600;
   line-height: 1.3;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
+  text-align: left;
 }
 
 /* Uppercase without tracking looks cramped; 0.09em sits inside the band caps
    are meant to occupy. */
 #team .team-role {
-  margin: 5px 0 0;
+  margin: 4px 0 0;
   padding: 0;
   color: var(--team-muted);
   background: transparent;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   line-height: 1.4;
   letter-spacing: 0.09em;
   text-transform: uppercase;
+  text-align: left;
 }
 
 #team .team-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  gap: 4px;
-  margin: 12px 0 0;
+  justify-content: flex-start;
+  gap: 2px;
+  margin: 9px 0 0;
   padding: 0;
 }
 
-/* Both controls are unboxed now. Four nested outlines per card — card, avatar,
-   icon button, text button — was most of why this read as a wireframe. */
+/* Unboxed. Four nested outlines per card — card, avatar, icon button, text
+   button — was most of why an earlier pass read as a wireframe. */
 #team .team-linkedin {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   flex: 0 0 auto;
   place-items: center;
+  margin-left: -7px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 6px;
   background: transparent;
   color: var(--team-muted);
   opacity: 1;
@@ -233,44 +240,42 @@
 #team .team-linkedin:hover,
 #team .team-linkedin:focus-visible {
   color: var(--p-fg);
-  background: rgba(47, 76, 85, 0.1);
+  background: rgba(47, 76, 85, 0.08);
   border: 0;
   transform: none;
 }
 
 #team .team-linkedin svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.95rem;
+  height: 0.95rem;
   fill: currentColor;
 }
 
-/* Deliberately not the yellow accent — the hero already spends the page's
-   accent budget, so this stays in the deep neutral. */
 #team .team-bio-open {
   display: inline-flex;
   align-items: center;
-  min-height: 34px;
-  padding: 0 10px;
+  min-height: 30px;
+  padding: 0 7px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 6px;
   background: transparent;
   color: var(--p-deep);
   font-family: inherit;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   white-space: nowrap;
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
-  text-decoration-color: rgba(47, 76, 85, 0.45);
+  text-decoration-color: rgba(47, 76, 85, 0.4);
   cursor: pointer;
   transition: background 160ms, text-decoration-color 160ms;
 }
 
 #team .team-bio-open:hover,
 #team .team-bio-open:focus-visible {
-  background: rgba(47, 76, 85, 0.1);
+  background: rgba(47, 76, 85, 0.08);
   border: 0;
   text-decoration-color: currentColor;
 }
@@ -281,7 +286,7 @@
   width: min(560px, calc(100vw - 32px));
   padding: 0;
   border: 0;
-  border-radius: 20px;
+  border-radius: 4px;
   background: #fff;
   color: var(--p-fg);
   box-shadow: 0 32px 80px rgba(23, 33, 38, 0.26);
@@ -305,12 +310,13 @@
 }
 
 .bio-dialog-head img {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 70px;
   flex: 0 0 auto;
-  border-radius: 50%;
+  border-radius: 2px;
   object-fit: cover;
-  background: #8f9d9f;
+  background: #e8e8e8;
+  filter: grayscale(1);
 }
 
 .bio-dialog h3 {
@@ -324,7 +330,7 @@
 
 .bio-dialog .bio-dialog-role {
   margin: 5px 0 0;
-  color: var(--p-muted);
+  color: #505d5a;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.085em;
@@ -360,7 +366,7 @@
   padding: 5px 11px;
   border: 1px solid var(--p-border);
   border-radius: 999px;
-  color: var(--p-muted);
+  color: #505d5a;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -394,7 +400,7 @@
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: var(--p-muted);
+  color: #505d5a;
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
@@ -402,50 +408,41 @@
 
 .bio-dialog-close:hover,
 .bio-dialog-close:focus-visible {
-  background: var(--p-sage);
+  background: #f0f0ee;
   color: var(--p-fg);
 }
 
 /* ------------------------------------------------------------ responsive */
 
-@media (max-width: 980px) {
-  #team .team-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(32px, 5vw, 44px) clamp(18px, 4vw, 28px);
-    max-width: 480px;
+@media (max-width: 860px) {
+  #team .team-heading {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 16px;
   }
 
-  #team .team-card .team-photo,
-  #team .team-card:nth-child(2) .team-photo,
-  #team .team-card:nth-child(3) .team-photo,
-  #team .team-card:nth-child(4) .team-photo {
-    max-width: 190px;
+  #team .team-heading h2 {
+    max-width: 16ch;
+  }
+
+  #team .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
 }
 
-/* Two portraits still read fine at phone width; one per row would make the
-   section needlessly long. */
-@media (max-width: 420px) {
-  #team .team-card .team-photo,
-  #team .team-card:nth-child(2) .team-photo,
-  #team .team-card:nth-child(3) .team-photo,
-  #team .team-card:nth-child(4) .team-photo {
-    max-width: 132px;
-  }
-
-  #team .team-info h3 {
-    font-size: 0.98rem;
+/* Colour-on-hover has no touch equivalent, so small screens keep the band
+   monochrome rather than offering an interaction that cannot fire. */
+@media (hover: none) {
+  #team .team-card:hover .team-photo img {
+    filter: grayscale(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #team .team-card .team-photo,
+  #team .team-card .team-photo img,
   #team .team-linkedin,
   #team .team-bio-open {
     transition: none;
-  }
-
-  #team .team-card:hover .team-photo {
-    transform: none;
   }
 }
