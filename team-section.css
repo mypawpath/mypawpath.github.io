@@ -26,24 +26,23 @@
    same white, same centred display headline, same centred subtitle, so the
    space between them read as empty page rather than a section break. */
 #team.team-section {
-  /* The portrait cut-outs are composited onto this exact value. */
-  --team-plate: #7eb29b;
+  /* Both values are mixes of --p-deep into --p-bg, so the section is built
+     from colours the page already uses rather than ones invented for it.
 
-  /* A soft band, not a dark one. Scored against four constraints at once
-     instead of picked by eye:
+     The previous palette was green, and it came from nowhere: the cat avatars
+     shipped with a sage disc, the cut-outs were matched to that, and the band
+     was then matched to the cut-outs. --p-sage is used exactly once in the
+     whole stylesheet, so the section's whole colour story rested on a dead
+     token while the page's real accent is the gold --p-accent (27 uses) that
+     paints the promise panel directly above this one.
 
-       vs #ffffff (promise, above)   1.23
-       vs #fffdf5 (footer, below)    1.21
-       portrait plate on it          1.95
-       --p-fg name on it            13.28
-
-     The binding constraint was never the band — it was --p-muted. At #64716e
-     that token falls to 4.12:1 on any tint dark enough to separate from both
-     neighbours, which is why the only options that ever passed were a band so
-     pale it matched the footer, or one dark enough to feel heavy. The section
-     uses its own darker muted instead, and the band can then stay light. */
-  --team-band: #dcebe2;
-  --team-muted: #44514e;
+     Warm was not an option here. Mixing the gold into the cream gives more
+     cream, which is the same family as the footer — the exact failure that
+     made an earlier band run into it. This cool neutral separates from the
+     gold panel above (1.41) and the cream footer below (1.28) at once. */
+  --team-plate: #8f9d9f;
+  --team-band: #e0e2dd;
+  --team-muted: #505d5a;
 
   background: var(--team-band);
   /* Both edges, so the band terminates against the footer as well as opening
@@ -52,6 +51,7 @@
   border-bottom: 1px solid rgba(47, 76, 85, 0.32);
   color: var(--p-fg);
 }
+
 
 #team .team-heading h2,
 #team .team-info h3 {
@@ -310,7 +310,7 @@
   flex: 0 0 auto;
   border-radius: 50%;
   object-fit: cover;
-  background: #7eb29b;
+  background: #8f9d9f;
 }
 
 .bio-dialog h3 {
